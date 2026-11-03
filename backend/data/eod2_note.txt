@@ -1,0 +1,1 @@
+Prices: official NSE end-of-day data (bhavcopy) via the open eod2_data archive, up to 2026-10-23. This snapshot has no exchange filings, reports or AI research; the daily GitHub run adds them.

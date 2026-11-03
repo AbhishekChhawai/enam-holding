@@ -1,0 +1,40 @@
+# Mock portfolio: simulated ownership of REAL securities (19 holdings).
+# Cost basis is computed, never invented: `mock.amount` is invested on the first trading day on/after
+# `mock.start`, split by `weight`, at that day's real closing prices. Returns come from real EOD prices.
+mock:
+  amount: 1000000            # ₹10 lakh
+  start: "2026-01-01"
+  benchmark: {symbol: "^NSEI", name: "NIFTY 50"}
+
+portfolio:
+  # ---- Indian equities (65%) ----
+  - {symbol: RELIANCE,   bse: "500325", name: Reliance Industries,       sector: Energy & conglomerate,  asset_class: Equity, weight: 7}
+  - {symbol: HDFCBANK,   bse: "500180", name: HDFC Bank,                 sector: Banking,                asset_class: Equity, weight: 7}
+  - {symbol: ICICIBANK,  bse: "532174", name: ICICI Bank,                sector: Banking,                asset_class: Equity, weight: 5}
+  - {symbol: BAJFINANCE, bse: "500034", name: Bajaj Finance,             sector: Financial services,     asset_class: Equity, weight: 4}
+  - {symbol: TCS,        bse: "532540", name: Tata Consultancy Services, sector: IT services,            asset_class: Equity, weight: 6}
+  - {symbol: PERSISTENT, bse: "533179", name: Persistent Systems,        sector: IT services,            asset_class: Equity, weight: 3}
+  - {symbol: BHARTIARTL, bse: "532454", name: Bharti Airtel,             sector: Telecom,                asset_class: Equity, weight: 5}
+  - {symbol: ITC,        bse: "500875", name: ITC,                       sector: Consumer goods,         asset_class: Equity, weight: 4}
+  - {symbol: LT,         bse: "500510", name: Larsen & Toubro,           sector: Infrastructure,         asset_class: Equity, weight: 5}
+  - {symbol: MARUTI,     bse: "532500", name: Maruti Suzuki,             sector: Automobiles,            asset_class: Equity, weight: 4}
+  - {symbol: SUNPHARMA,  bse: "524715", name: Sun Pharmaceutical,        sector: Pharma,                 asset_class: Equity, weight: 4}
+  - {symbol: TITAN,      bse: "500114", name: Titan Company,             sector: Consumer discretionary, asset_class: Equity, weight: 4}
+  - {symbol: DIXON,      bse: "540699", name: Dixon Technologies,        sector: Electronics manufacturing, asset_class: Equity, weight: 4}
+  - {symbol: POLYCAB,    bse: "542652", name: Polycab India,             sector: Cables & wires,         asset_class: Equity, weight: 3}
+  # ---- Gold (7%) ----
+  - {symbol: GOLDBEES,   kind: etf, name: Nippon India ETF Gold BeES, sector: Gold, asset_class: Gold, weight: 7,
+     tracks: "Domestic price of gold"}
+  # ---- Debt (13%) ----
+  - {symbol: GILT5YBEES, kind: etf, name: Nippon India ETF Nifty 5 Yr Benchmark G-Sec, sector: Government bonds, asset_class: Debt, weight: 8,
+     tracks: "Nifty 5 yr Benchmark G-Sec Index (Government of India bonds)"}
+  - {symbol: LIQUIDBEES, kind: etf, name: Nippon India ETF Nifty 1D Rate Liquid BeES, sector: Overnight money market, asset_class: Debt, weight: 5,
+     tracks: "Nifty 1D Rate Index", note: "Pays its return as extra units, so its price stays near ₹1,000 and price return shows about 0%."}
+  # ---- International (15%) ----
+  - {symbol: MON100,     kind: etf, name: Motilal Oswal NASDAQ 100 ETF, sector: US technology, asset_class: International, weight: 10,
+     tracks: "NASDAQ-100 (United States)", underlying: "^NDX", underlying_name: "NASDAQ-100"}
+  - {symbol: HNGSNGBEES, kind: etf, name: Nippon India ETF Hang Seng BeES, sector: Hong Kong equities, asset_class: International, weight: 5,
+     tracks: "Hang Seng Index (Hong Kong)", underlying: "^HSI", underlying_name: "Hang Seng"}
+
+# Companies pre-computed for the on-demand research demo (stocks only; any NSE symbol works).
+research_demo: [DIXON, PERSISTENT, KAYNES, POLYCAB]
