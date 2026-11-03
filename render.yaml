@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: finn
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: FINN_DB_URL          # Neon Postgres URL; without it, SQLite on ephemeral disk (state resets on restart)
+        sync: false
+      - key: FINN_CRON_SECRET     # send as header X-Cron-Secret from cron-job.org
+        generateValue: true
+      - key: FINN_LIVE_REFRESH
+        value: "1"
