@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------- tokens
+   Light: soft sky backdrop, frosted white cards, deep-navy hero. Dark: midnight with blue glow.
+   (--marigold is the accent slot used across the app; it is now FINN blue.) */
+:root {
+  --paper: #E6EEF9;
+  --paper-2: #CFDDF2;
+  --surface: rgba(255, 255, 255, 0.74);
+  --ink: #0E1C36;
+  --muted: #5A6B86;
+  --line: rgba(14, 28, 54, 0.09);
+  --wash: rgba(79, 142, 247, 0.10);
+  --marigold: #3D7BEA;
+  --marigold-wash: rgba(61, 123, 234, 0.14);
+  --on-marigold: #FFFFFF;
+  --up: #12925F;
+  --up-wash: rgba(18, 146, 95, 0.12);
+  --down: #D93D45;
+  --down-wash: rgba(217, 61, 69, 0.11);
+  --navy-a: #213D72; --navy-b: #2C4F8E; --navy-c: #0F1E3D;
+  --shadow: 0 10px 30px -12px rgba(14, 28, 54, 0.22), 0 2px 6px -2px rgba(14, 28, 54, 0.06);
+  --glow: radial-gradient(1200px 520px at 85% -10%, rgba(255,255,255,0.9), transparent 60%);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #070D1A; --paper-2: #0D1830;
+    --surface: rgba(22, 34, 60, 0.72);
+    --ink: #EAF1FF; --muted: #93A4C3;
+    --line: rgba(255, 255, 255, 0.08); --wash: rgba(124, 176, 255, 0.12);
+    --marigold: #6FA6FF; --marigold-wash: rgba(111, 166, 255, 0.18); --on-marigold: #061226;
+    --up: #3DD68C; --up-wash: rgba(61, 214, 140, 0.14); --down: #FF6B6B; --down-wash: rgba(255, 107, 107, 0.14);
+    --navy-a: #1B3366; --navy-b: #284A8A; --navy-c: #0A1530;
+    --shadow: 0 14px 40px -16px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255,255,255,0.04);
+    --glow: radial-gradient(900px 480px at 80% -10%, rgba(80,130,255,0.25), transparent 60%);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #070D1A; --paper-2: #0D1830;
+  --surface: rgba(22, 34, 60, 0.72);
+  --ink: #EAF1FF; --muted: #93A4C3;
+  --line: rgba(255, 255, 255, 0.08); --wash: rgba(124, 176, 255, 0.12);
+  --marigold: #6FA6FF; --marigold-wash: rgba(111, 166, 255, 0.18); --on-marigold: #061226;
+  --up: #3DD68C; --up-wash: rgba(61, 214, 140, 0.14); --down: #FF6B6B; --down-wash: rgba(255, 107, 107, 0.14);
+  --navy-a: #1B3366; --navy-b: #284A8A; --navy-c: #0A1530;
+  --shadow: 0 14px 40px -16px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255,255,255,0.04);
+  --glow: radial-gradient(900px 480px at 80% -10%, rgba(80,130,255,0.25), transparent 60%);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-wash: var(--wash);
+  --color-marigold: var(--marigold);
+  --color-marigold-wash: var(--marigold-wash);
+  --color-on-marigold: var(--on-marigold);
+  --color-up: var(--up);
+  --color-up-wash: var(--up-wash);
+  --color-down: var(--down);
+  --color-down-wash: var(--down-wash);
+  --radius-2xl: 1.375rem;
+  --font-display: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+html { height: 100%; background: var(--paper); transition: background-color .35s ease; }
+body, #root { min-height: 100%; }
+body {
+  background: var(--glow), linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  transition: color .35s ease;
+}
+.num { font-variant-numeric: tabular-nums; }
+.display { font-family: var(--font-display); letter-spacing: -0.02em; }
+.display-tight { font-family: var(--font-display); letter-spacing: 0.01em; }
+:focus-visible { outline: 2px solid var(--marigold); outline-offset: 2px; border-radius: 10px; }
+button { cursor: pointer; }
+
+.safe-top { padding-top: env(safe-area-inset-top, 0px); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+/* ---------------------------------------------------------------- glass cards */
+.bg-surface { -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4); box-shadow: var(--shadow); }
+.navy {
+  /* the deep-blue hero: everything inside re-themes itself to light-on-navy through the variables */
+  --ink: #FFFFFF; --muted: rgba(226, 236, 255, 0.72); --line: rgba(255,255,255,0.12); --wash: rgba(255,255,255,0.09);
+  --surface: rgba(255,255,255,0.07); --up: #4BE3A0; --down: #FF8A8A; --up-wash: rgba(75,227,160,0.16); --down-wash: rgba(255,138,138,0.16);
+  --marigold: #8FC0FF; --marigold-wash: rgba(143,192,255,0.18); --on-marigold: #061226;
+  color: var(--ink);
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(160, 200, 255, 0.35), transparent 55%),
+    linear-gradient(155deg, var(--navy-b) 0%, var(--navy-a) 45%, var(--navy-c) 100%);
+  box-shadow: 0 22px 44px -22px rgba(13, 34, 80, 0.75), inset 0 1px 0 rgba(255,255,255,0.18);
+}
+.navy .bg-surface { box-shadow: none; }
+.glass-btn {
+  background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06));
+  border: 1px solid rgba(255,255,255,0.18);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+}
+.chip { display: inline-flex; align-items: center; gap: .35rem; border-radius: 999px; padding: .3rem .7rem; font-size: 12.5px; border: 1px solid var(--line); background: var(--wash); }
+.avatar { display: inline-grid; place-items: center; flex-shrink: 0; border-radius: 999px; font-weight: 700; letter-spacing: .02em;
+  background: linear-gradient(145deg, var(--marigold-wash), var(--wash)); color: var(--ink); border: 1px solid var(--line); }
+
+/* ---------------------------------------------------------------- motion */
+button, a, [role="radio"], .lift { transition: transform .16s cubic-bezier(.3,.7,.4,1.5), background-color .2s ease, box-shadow .2s ease, color .2s ease, opacity .2s ease; }
+button:active:not(:disabled), a:active, .press:active { transform: scale(0.96); }
+@media (hover: hover) { .lift:hover { transform: translateY(-2px); } }
+.rise { animation: rise .55s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px) scale(.985); } to { opacity: 1; transform: none; } }
+.pop { animation: pop .45s cubic-bezier(.3,1.6,.5,1) both; }
+@keyframes pop { from { transform: scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+.spin-in { animation: spin-in .5s cubic-bezier(.3,1.4,.5,1) both; }
+@keyframes spin-in { from { transform: rotate(-120deg) scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+.draw { stroke-dasharray: var(--len, 1000); stroke-dashoffset: var(--len, 1000); animation: draw 1.1s cubic-bezier(.4,.1,.2,1) forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.tick { transition: height 520ms cubic-bezier(.2,.7,.2,1), background-color 520ms ease, opacity 520ms ease; }
+.sheet { animation: sheet-in .38s cubic-bezier(.2,1.2,.3,1); }
+@keyframes sheet-in { from { transform: translateY(40px); opacity: .4; } to { transform: none; opacity: 1; } }
+.fade { animation: fade .3s ease both; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  .draw { stroke-dashoffset: 0; }
+}
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none { scrollbar-width: none; }
